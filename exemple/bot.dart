@@ -1,12 +1,13 @@
-import '../lib/client/Client.dart';
-import '../lib/message/Message.dart';
+import '../bin/Client.dart';
+import '../bin/Events.dart';
+import '../bin/Message.dart';
 
 void main() {
-  Client client = new Client();
-  client.login("email@gmail.com", "passwordpassword");
+  var client = Client();
+  client.login('email@gmail.com', 'password');
 
   print(client.getUser().getDisplayName());
-  client.on("NewMessage", onMessage);
+  client.on(Events.Message, onMessage);
 }
 
 void onMessage(Message msg) {

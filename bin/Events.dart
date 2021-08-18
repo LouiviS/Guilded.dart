@@ -1,0 +1,4 @@
+enum Events {
+  Message,
+  MessageDeleted,
+}
