@@ -4,6 +4,7 @@ import '../lib/message/Message.dart';
 void main() {
   Client client = new Client();
   client.login("email@gmail.com", "passwordpassword");
+
   print(client.getUser().getDisplayName());
   client.on("NewMessage", onMessage);
 }

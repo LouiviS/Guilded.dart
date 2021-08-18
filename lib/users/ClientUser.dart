@@ -8,10 +8,10 @@ class ClientUser {
   }
 
   String getName() {
-    return "BOT IN DART";
+    return "";
   }
 
   String getDisplayName() {
-    return "DISPLAY BOT";
+    return "";
   }
 }
