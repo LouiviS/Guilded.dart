@@ -28,10 +28,13 @@ class Client {
     final request = await _session.postUrl(Uri.parse(_base + 'login'));
     request.headers
         .set(HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
-    var toencode = {};
-    toencode["email"] = email;
-    toencode["password"] = password;
-    request.write(json.encode(toencode));
+
+    var data = {};
+    data["email"] = email;
+    data["password"] = password;
+
+    request.write(json.encode(data));
+
     final response = await request.close();
 
     response.transform(utf8.decoder).listen((contents) {
