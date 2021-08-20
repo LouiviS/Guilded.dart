@@ -1,15 +1,13 @@
-import '../bin/Client.dart';
-import '../bin/Events.dart';
-import '../bin/Message.dart';
+import '../bin/Guilded.dart';
 
 void main() {
   var client = Client();
   client.login('email@gmail.com', 'password');
-
-  print(client.getUser().getDisplayName());
-  client.on(Events.Message, onMessage);
+  client.on(Events.Ready, onReady);
 }
 
-void onMessage(Message msg) {
-  print(msg.getContent());
+void onReady(ClientUser user) {
+  print('Online as ${user.getName()}');
+  print('Bot Name: ' + user.getName());
+  print('Bot Id: ' + user.getId());
 }

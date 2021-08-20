@@ -2,24 +2,18 @@ import 'Client.dart';
 
 class ClientUser {
   Client _client;
+  Map<String, dynamic> _userData;
 
-  ClientUser(Client client) {
+  ClientUser(Client client, Map data) {
     _client = client;
+    _userData = data;
   }
 
-  int getId() {
-    return 4548548;
-  }
-
-  String getTag() {
-    return 'BOT#1234';
+  String getId() {
+    return _userData['id'];
   }
 
   String getName() {
-    return 'BOT';
-  }
-
-  String getDisplayName() {
-    return 'BOT';
+    return _userData['name'];
   }
 }

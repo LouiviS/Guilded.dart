@@ -8,7 +8,9 @@ import 'Events.dart';
 class Client {
   final String _base = 'https://api.guilded.gg/';
   final HttpClient _session = HttpClient();
+  Map _user = null;
 
+  final Map<Events, Function> _e = <Events, Function>{};
   String _email = '';
   String _password = '';
   bool _connected = false;
@@ -39,8 +41,19 @@ class Client {
     final response = await request.close();
 
     response.transform(utf8.decoder).listen((contents) {
-      print(response.statusCode);
-      print(contents);
+      if (response.statusCode == 400) {
+        throw 'LoginError: Failed to login, verify the email & password';
+      }
+      if (response.statusCode == 200) {
+        Map data = json.decode(contents);
+        _user = data['user'];
+
+        _e.forEach((key, value) {
+          if (key == Events.Ready) {
+            value.call(ClientUser(this, _user));
+          }
+        });
+      }
     });
   }
 
@@ -48,6 +61,7 @@ class Client {
     if (_email == '' || _password == '') {
       throw 'ClientError: "No email or password was given"';
     }
+    _e[event] = f;
     switch (event) {
       case Events.Message:
         {
@@ -66,6 +80,6 @@ class Client {
     if (_email == '' || _password == '') {
       throw 'ClientError: "No email or password was given"';
     }
-    return ClientUser(this);
+    return ClientUser(this, _user);
   }
 }
